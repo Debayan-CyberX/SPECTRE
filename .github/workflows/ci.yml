@@ -1,0 +1,48 @@
+name: Verify SPECTRE
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: spectre
+          POSTGRES_DB: spectre
+          POSTGRES_PASSWORD: disposable-ci-only
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U spectre -d spectre" --health-interval 5s --health-timeout 3s --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r backend/requirements-dev.lock
+      - run: ruff check backend
+      - run: pytest -q backend/tests
+      - name: PostgreSQL migration and synthetic import
+        run: python -m spectre.cli init
+        env:
+          SPECTRE_DATABASE_URL: postgresql+psycopg://spectre:disposable-ci-only@127.0.0.1:5432/spectre
+          SPECTRE_INITIAL_PASSWORD: disposable-ci-only-password
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm, cache-dependency-path: frontend/package-lock.json}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r backend/requirements-dev.lock
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run typecheck && npm run lint && npm test && npm run build
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - run: npm run test:e2e
+        working-directory: frontend
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with: {name: browser-test-results, path: frontend/test-results}

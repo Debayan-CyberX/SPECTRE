@@ -1,0 +1,12 @@
+{
+  "record_count": 1000,
+  "artifact_bytes": 153539,
+  "ingestion_seconds": 0.756,
+  "records_per_second": 1323.0,
+  "first_page_250_ms": 17.16,
+  "python": "3.12.10",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "database": "temporary SQLite",
+  "measured_at": "2026-10-22T17:40:21.073691+00:00",
+  "limits": "One local run, file-category records, no process graph load. Not an EVTX or production throughput claim."
+}

@@ -1,0 +1,7 @@
+{
+  "dataset_version": "1.0.0", "synthetic": true, "event_count": 14, "process_count": 6,
+  "expected_rules": {"SP-001": [12005], "SP-002": [12003, 12005], "SP-003": [12005, 12007], "SP-004": [12009]},
+  "unresolved_parent_record": 12001,
+  "pid_reuse_records": [12005, 12012],
+  "interpretation": "The evidence supports candidate leads only. It does not establish document contents, a compromise, destination reputation, exfiltration, or the intent behind the registry value."
+}

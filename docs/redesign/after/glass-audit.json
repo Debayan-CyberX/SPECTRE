@@ -1,0 +1,15 @@
+{
+  "background": "rgb(3, 3, 3)",
+  "backdrop": "blur(22px) saturate(0)",
+  "tilt": true,
+  "pause": true,
+  "reduced": true,
+  "print": {
+    "paper": "rgb(242, 243, 240)",
+    "manager": "none",
+    "ambient": "none"
+  },
+  "canvas": "rgb(7, 7, 7)",
+  "touch": true,
+  "narrowOverflow": false
+}

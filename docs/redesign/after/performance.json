@@ -1,0 +1,13 @@
+{
+  "environment": "Local production Next.js; headless Chromium; unthrottled; one run, not field Core Web Vitals or INP",
+  "lcp": 384,
+  "cls": 0.00026370145161946614,
+  "domContentLoadedMs": 280.39999985694885,
+  "resourceTransferBytes": 635515,
+  "twoFrameSelectionMs": 63.299999952316284,
+  "selectedTitle": "powershell.exe started",
+  "desktopCanvasFramesInOneSecond": 28,
+  "mobileCanvasFramesInOneSecond": 15,
+  "mobileCanvasMode": "low-power",
+  "pauseStoppedFrames": true
+}
